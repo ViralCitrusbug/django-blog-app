@@ -18,17 +18,21 @@ def home(request):
     search = request.GET.get('search')
     if request.method == "GET":
         if search:
-            
             post = Post.objects.filter(Q(title__icontains=search) | Q(content__icontains=search))
     if cat_id:
         post = Post.objects.filter(category=cat_id) 
-    paginator = Paginator(post,3)
+    post_per_page = 3
+    paginator = Paginator(post,post_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    start = int(page_number)
+    end = int(page_number)-1+post_per_page
+    print(start,end)
     context = {
         "posts":post,
         "category":cat,
-        "page":page_obj
+        "page":page_obj,
+        "paginator":paginator
     }
     return render(request , "index.html", context)
 
@@ -45,7 +49,6 @@ def blog_detail(request,post_id):
 ## PROFILE
 
 def profile(request,username):
-    
     user_detail = User.objects.get(username=username)
     post = Post.objects.filter(user = request.user)
     if request.method == "POST":
