@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% block title %}
+Profile
+{% endblock %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-3">
+            {% if user.profile.picture|length > 1 %}
+                <div><img class="w-100 rounded-circle" src="{{user.profile.picture.url}}" alt=""></div>
+            {% else %}
+            <form action="/user/profile/{{user.username}}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <label for=""><h4><b>UploadImage</b></h4></label>
+                <div><input class="input-group-text" type="file" name="img" id=""></div>
+                <button class="btn btn-dark mt-2">Upload</button>
+            </form>
+            {% endif %}
+            
+            <div class="text-center mt-5">
+                <h1>{{user.profile.user.first_name}} {{user.profile.user.last_name}}</h1>
+            </div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col text-center">
+            <h1 class="text-decoration-underline border border-2 border-dark p-3">Blogs From <b class="text-uppercase">{{user.profile.user.username}}</b></h1>
+            <div class="mt-5">
+                {% if user.profile.user.post_set.all|length < 1 %}
+                    <h4 class="text-danger fa fa-2x"> No Blog From This User </h4>
+                {% endif %}
+                {% for post in user.profile.user.post_set.all %}
+                    <div class="d-flex">
+                        <a class="m-2" href="/blog/post/{{post.id}}">
+                            <div class="text-start border border-2 border-dark p-2">
+                                <img class="w-50 p-4" src="{{post.post_image.url}}" alt="">
+                                <h3 class="text-black">{{post.title}}</h3>
+                            </div>
+                        <div class="">
+                          {% if request.user == user.profile.user %}
+                            <form action="/blog/{{post.id}}/delete" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-dark">Delete Post</button>
+                            </form>
+                          {% endif %} 
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

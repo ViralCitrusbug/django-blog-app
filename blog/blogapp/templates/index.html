@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+{% block body %}
+<div class="d-flex bg-success">
+
+    </div>
+</div>
+<div class="container">
+    <div class="mt-5">
+        <div class="d-flex">
+            <div class="col-2">
+                <div class="col mx-4 mt-3">
+                    <h4>Category</h4>
+                    <div class="border p-1 text-center">
+                        <a class="text-black text-decoration-none " href="/">All Product</a>
+                    </div>
+                    <div class="row">
+                        {% for cat in category %}
+                            <div class="border p-1 text-center">
+                                <a class="text-black text-decoration-none " href="/?category={{cat.id}}">{{cat}}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% for message in messages %}
+                    <h4 class="text-success">{{message}}</h4>
+                {% endfor %}
+            </div>
+            <div class="col">
+                {% for post in page %}
+                <div class="row border-bottom my-5">
+                    <div class="col-5">
+                        <div><a href="/blog/post/{{post.id}}">
+                            <img class="w-100" src="{{post.post_image.url}}" alt="">
+                        </a></div>
+                    </div>
+                    <div class="col">
+                        <h6 class=""><b><a class="text-danger text-decoration-none" href="/post/filter/{{post.category}}">{{post.category}}</a></b></h6>
+                        <h4 class="">{{post.title}}</h4>
+                        <p><b><i class="text-black">{{post.content|slice:"0:150"}}...<a class="text-decoration-none text-primary" href="/blog/post/{{post.id}}">readmore</a></i></b></p>
+                        <pre><b><a class="text-decoration-none text-black" href="/user/profile/{{post.user.username}}">{{post.user}}</a></b> | {{post.published_date}}</pre>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col text-start">
+        {% if page.has_previous %}
+            <a href="?page={{page.previous_page_number}}">Previous</a>
+        {% endif %}
+    </div>
+    <div class="col text-center">
+        {{page.number}}
+    </div>
+    <div class="col text-end">
+        {% if page.has_next %}
+            <a href="?page={{page.next_page_number}}">Next</a>
+        {% endif %}
+    </div>
+</div>
+    
+
+</div>
+
+
+
+{% endblock %}

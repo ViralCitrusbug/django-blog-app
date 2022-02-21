@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% block title %}
+All Post From {{cat.first}}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for i in cat %}
+    <div class="mt-5">
+        {% for post in i.post_set.all %}
+        <div class="row border-bottom my-5">
+            <div class="col-5">
+                <div><a href="/blog/post/{{post.id}}">
+                        <img class="w-100" src="{{post.post_image.url}}" alt="">
+                    </a></div>
+            </div>
+            <div class="col">
+                <h6 class=""><b><a class="text-danger text-decoration-none"
+                            href="/post/filter/{{post.category}}">{{post.category}}</a></b></h6>
+                <h4 class="">{{post.title}}</h4>
+                <p><b><i class="text-black">{{post.topic_1|slice:"0:250"}}...</i></b></p>
+                <pre><b><a class="text-decoration-none text-black" href="/user/profile/{{post.user.username}}">{{post.user}}</a></b> | {{post.published_date}}</pre>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

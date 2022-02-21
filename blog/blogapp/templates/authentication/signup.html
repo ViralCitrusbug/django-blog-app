@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% block title %}
+    Register 
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-4">
+                {% for msg in messages %}
+                    <b><i>{{msg}}</i></b>
+                {% endfor %}
+        </div>
+        <div class="col w-100 border border-2 border-dark">
+            <div class="bg-dark rounded rounded-3">
+                <h1 class="p-2 text-light">SignUp Here</h1>
+            </div>
+            <form  method="post">
+                {% csrf_token %}
+                <div class="py-3 px-5">
+                    <div class="mt-3">
+                        <label for="name">First Name</label> <br>
+                        <input required type="text" class="border border-2 border-dark input-group-text w-100" name="fname" placeholder="First Name">
+                    </div>
+                    <div class="mt-3">
+                        <label for="name">Last Name</label> <br>
+                        <input required type="text" class="border border-2 border-dark input-group-text w-100" name="lname" placeholder="LastName">
+                    </div>
+                    <div class="mt-3">
+                        <label for="name">User Name</label> <br>
+                        <input required type="text" class="border border-2 border-dark input-group-text w-100" name="uname" placeholder="UserName">
+                    </div>
+                    <div class="mt-3">
+                        <label for="Email">E-mail</label> <br>
+                        <input required type="email" class="border border-2 border-dark input-group-text w-100" name="email" placeholder="E-mail">
+                    </div>
+                    <div class=" mt-3">
+                        <label for="password">Enter your Password</label> <br>
+                        <input required type="password" class="border border-2 border-dark input-group-text w-100" name="pass" placeholder="Enter Password">
+                    </div>
+                    <div class=" mt-3">
+                        <label for="password">Confirm your Password</label> <br>
+                        <input required type="password" class="border border-2 border-dark input-group-text w-100" name="cpass" placeholder="Confirm Password">
+                    </div>
+                    <div class=" mt-3 text-center">
+                        <button class="btn border border-2 border-dark btn-outline-dark w-50"type="submit">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{{detail}}
+{% endblock %}
