@@ -1,7 +1,10 @@
+from django import forms
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib.auth.models import User
+from django.views.generic import ListView,DetailView
+from django.views.generic.edit import DeleteView,UpdateView,CreateView
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.db.models.signals import post_save
@@ -25,9 +28,6 @@ def home(request):
     paginator = Paginator(post,post_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    start = int(page_number)
-    end = int(page_number)-1+post_per_page
-    print(start,end)
     context = {
         "posts":post,
         "category":cat,
@@ -164,7 +164,7 @@ def add_blog(request):
 def delete_blog(request,id):
     post = Post.objects.filter(id=id)
     post.delete()
-    return redirect(f'/user/{request.user.username}/profile')
+    return redirect(f'/user/{request.user.id}/profile')
 
 
 def post_comment(request,id):

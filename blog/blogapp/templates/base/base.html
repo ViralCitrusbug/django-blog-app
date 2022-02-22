@@ -41,7 +41,7 @@
                     <div class="d-flex col">
                         {% if request.user.is_authenticated %}
                             <a class="btn text-black" href="/user/logout">Logout</a>
-                            <a class="btn text-black  mx-1" href="/user/{{request.user.username}}/profile">Profile</a>
+                            <a class="btn text-black  mx-1" href="/user/{{request.user.id}}/profile">Profile</a>
                             <a class="btn text-black" href="/blog/create">AddBlog</a>
                         {% else %}
                             <a class="btn text-black" href="/user/login">Login</a>

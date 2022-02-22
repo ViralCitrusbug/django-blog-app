@@ -9,12 +9,16 @@ Profile
             {% if user.profile.picture|length > 1 %}
                 <div><img class="w-100 rounded-circle" src="{{user.profile.picture.url}}" alt=""></div>
             {% else %}
-            <form action="/user/profile/{{user.username}}" enctype="multipart/form-data" method="post">
+            {% if request.user == user.profile.user %}
+            <form action="/user/{{user.username}}/profile" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <label for=""><h4><b>UploadImage</b></h4></label>
                 <div><input class="input-group-text" type="file" name="img" id=""></div>
                 <button class="btn btn-dark mt-2">Upload</button>
             </form>
+            {% else %}
+            <pre>No Picture</pre>
+            {% endif %}
             {% endif %}
             
             <div class="text-center mt-5">

@@ -29,7 +29,6 @@ class Image(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='user/profile/profile-pic')
-
     def __str__(self) -> str:
         return self.user.first_name
 
@@ -38,6 +37,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     comment = models.TextField(max_length=100)
     upload_on = models.DateTimeField(default=now)
+    
 
     def __str__(self) -> str:
         return f"{self.user.username}\t{self.comment[0:10]}..."

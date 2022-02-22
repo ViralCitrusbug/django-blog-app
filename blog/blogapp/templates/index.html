@@ -43,7 +43,7 @@ Home
                         <p><b><i class="text-black">{{post.content|slice:"0:150"}}...<a
                                         class="text-decoration-none text-primary"
                                         href="/blog/post/{{post.id}}">readmore</a></i></b></p>
-                        <pre><b><a class="text-decoration-none text-black" href="/user/{{post.user.username}}/profile">{{post.user}}</a></b> | {{post.published_date}}</pre>
+                        <pre><b><a class="text-decoration-none text-black" href="/user/{{post.user.id}}/profile">{{post.user}}</a></b> | {{post.published_date}}</pre>
                     </div>
                 </div>
                 {% endfor %}
@@ -55,20 +55,26 @@ Home
     <div class="row">
         <div class="mx-5 col text-start">
             {% if page.has_previous %}
-            <a href="/?page={{page.previous_page_number}}">Previous</a>
+            <a class="btn btn-outline-primary" href="/?page={{page.previous_page_number}}">Previous</a>
             {% endif %}
         </div>
         <div class="col">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% for p in paginator.page_range %}
-                    <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+                    <li class="{% if p == page.number %} active {% endif %}page-item">
+                        {% if p != page.number %}  
+                           <a class="page-link"  href="?page={{p}}">{{p}}</a>
+                        {% else %}
+                            <b class="page-link" href="">{{p}}</b>
+                        {% endif %}
+                    </li>
                     {% endfor %}
             </nav>
         </div>
-        <div class="col text-end">
+        <div class="col  text-end">
             {% if page.has_next %}
-<a  href="/?page={{page.next_page_number}}">Next</a>
+                <a class="btn btn-outline-primary" href="/?page={{page.next_page_number}}">Next</a>
             {% endif %}
         </div>
     </div>
