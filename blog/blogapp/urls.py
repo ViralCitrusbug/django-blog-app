@@ -11,14 +11,16 @@ urlpatterns = [
     # path('user/create',views.signup,name="register"),
     path('blog/<str:id>/comment',views.post_comment,name='post-comment'),
     path('post/filter/<str:cat>',views.post_by_category,name="post-by-category"),
-    path('blog/create',views.add_blog,name='add-blog'),
+    # path('blog/create',views.add_blog,name='add-blog'),
     path('blog/<str:id>/delete',views.delete_blog,name="delete-blog"),
 
     ##  CLASS BASED VIEW
     path('',classviews.PostList.as_view(),name="home"),
+    path('cat',classviews.CategoryList.as_view(),name="cat"),
     path('blog/post/<pk>',classviews.PostDetail.as_view(),name="post-detail"),
     path('user/create',classviews.CreateUser.as_view(),name="create-user"),
-    path('user/<int:pk>/profile',classviews.ProfileView.as_view(),name='profile')
+    path('user/<int:pk>/profile',classviews.ProfileView.as_view(),name='profile'),
+    path('blog/create',classviews.CreatePost.as_view(),name="create-post")
 
 ]
 

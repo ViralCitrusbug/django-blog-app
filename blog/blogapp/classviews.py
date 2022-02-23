@@ -1,15 +1,19 @@
-from django import forms
 from django.contrib.auth.models import User
 from django.http import Http404
-from django.views.generic import ListView,DetailView
-from django.views.generic.edit import UpdateView,DeleteView,CreateView
-from .models import Post,Category,Image, Profile
-from . import formviews
+from django.views.generic import ListView,DetailView,CreateView
+from .models import Post,Category
+from .formviews import *
+
+
+class CategoryList(ListView):
+    model = Category
+    context_object_name = "category"
+    template_name = 'base/header.html'
 
 class PostList(ListView):
     model = Post
     context_object_name = "page"
-    template_name = 'index.html'
+    template_name = 'base/header.html'
     ordering = ['-published_date']
     paginate_by = 3
     paginate_orphans = 1
@@ -33,6 +37,12 @@ class ProfileView(DetailView):
 
 class CreateUser(CreateView):
     model = User
-    form_class = formviews.SignupForm
+    form_class = SignupForm
     template_name = 'authentication/signup.html'
     success_url = '/login'
+
+class CreatePost(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'class/add-blog.html'
+    success_url = "/"
