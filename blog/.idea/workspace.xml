@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df169152-e16b-4cf1-b935-ac2465333542" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/blog/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blogapp/classviews.py" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/classviews.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blogapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blogapp/templates/add-blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/templates/add-blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blogapp/templates/authentication/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/templates/authentication/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blogapp/templates/authentication/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/templates/authentication/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blogapp/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/templates/blog_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blogapp/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blogapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blogapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blogapp/views.py" afterDir="false" />
     </list>

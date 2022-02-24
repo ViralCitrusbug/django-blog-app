@@ -1,7 +1,8 @@
+from django.contrib import auth,messages
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import Http404
 from django.shortcuts import render,redirect
 from django.views.generic import ListView,DetailView,CreateView,View,UpdateView,DeleteView
 from .models import Post,Category, Profile
@@ -68,3 +69,19 @@ class CreatePost(CreateView):
 class DeletePost(DeleteView):
     model = Post
     success_url = '/blog/create'
+
+class PostComment(View):
+    def post(self,request,id):
+        if request.user is not None: 
+            post = Post.objects.get(id=id)
+            user = request.user
+            comment = request.POST.get('comment')
+            Comment.objects.create(user=user,post=post,comment=comment).save()
+            return redirect(f'/blog/post/{post.id}')
+        else:
+            return redirect('login')
+
+class Logout(View):
+    def get(self,request):
+        auth.logout(request)
+        return redirect('login')

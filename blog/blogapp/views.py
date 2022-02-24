@@ -71,7 +71,7 @@ def login(request):
             password_check = check_password(password,user.password)
             if password_check:
                 auth.login(request,user)
-                return redirect('home')
+                return redirect(f'/user/{user.id}/profile')
             else:
                 messages.warning(request,"Invalid Username or Password")
         else:
