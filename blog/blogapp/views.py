@@ -1,10 +1,7 @@
-from django import forms
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib.auth.models import User
-from django.views.generic import ListView,DetailView
-from django.views.generic.edit import DeleteView,UpdateView,CreateView
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.db.models.signals import post_save
@@ -13,7 +10,7 @@ from django.shortcuts import redirect, render
 from .models import Image, Post , Category, Profile,Comment
 
 ##  GLOBAL VARIABLE
-category_list = Category.objects.all()
+category_list = Category.objects.select_related()
 
 def home(request):
     post = Post.objects.all().order_by('-published_date')
@@ -49,11 +46,11 @@ def blog_detail(request,post_id):
 ## PROFILE
 
 def profile(request,username):
-    user_detail = User.objects.get(username=username)
+    user_detail = User.objects.get(id=username)
     post = Post.objects.filter(user = request.user)
     if request.method == "POST":
         Profile.objects.filter(user=request.user).delete()
-        image = request.FILES.get('img')
+        image = request.FILES.get('image')
         prof = Profile.objects.create(user=request.user,picture=image)
         prof.save()
     context = {
@@ -68,7 +65,7 @@ def profile(request,username):
 def login(request):
     if request.method == "POST":
         user_name = request.POST.get('username')
-        password = request.POST.get('pass')
+        password = request.POST.get('password')
         if User.objects.filter(username=user_name).exists():
             user = User.objects.get(username=user_name)
             password_check = check_password(password,user.password)
@@ -91,7 +88,7 @@ def signup(request):
         user_name = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        confirm_pass = request.POST.get('confirm_pass')
+        confirm_pass = request.POST.get('confirm_password')
         if len(firstname)!=0 and len(lastname)!=0 and len(user_name)!=0 and len(email)!=0 and len(password)!=0 and len(confirm_pass)!=0:
             if not User.objects.filter(username=user_name).exists():
                 if password == confirm_pass:
@@ -121,8 +118,8 @@ def logout(request):
     auth.logout(request)
     return redirect('login')
 
-def post_by_category(request,cat):
-    category = Category.objects.filter(name=cat)
+def post_by_category(request,category):
+    category = Category.objects.filter(name=category)
     context = {
         "cat":category
     }
@@ -138,7 +135,7 @@ def add_blog(request):
             content = request.POST.get('content')
             image = request.FILES.get('image')
             cat = request.POST.get('cat')
-            other_images = request.FILES.getlist('mulimage')
+            other_images = request.FILES.getlist('multipleimage')
             cat_check = Category.objects.filter(name=cat)
             if len(title)!=0 and len(content)!=0 and len(image)!=0:
                 if cat_check.exists():

@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block title %}
 Blog Detail
 {% endblock %}
@@ -89,12 +90,18 @@ Blog Detail
             {% for comment in comments %}
             <div class="bg-secondary bg-opacity-25 bg-gradient py-2 border mb-2">
                 <div class="d-flex">
+                    {% if comment.user.profile.picture|length > 0 %}
                     <div class="col-md-2">
                         <img class="w-25" src="{{comment.user.profile.picture.url}}" alt="">
                     </div>
+                    {% else %}
+                        <div class="col-md-2">
+                            <img class="w-25" src="{% static 'default-profile/default-profile.png' %}" alt="">
+                        </div>
+                    {% endif %}
                     <div class="col-4">
                         <b class=""><a class="text-decoration-none text-black"
-                                href="/user/profile/{{comment.user.username}}">{{comment.user.username}}</a></b>
+                                href="/user/{{comment.user.id}}/profile">{{comment.user.username}}</a></b>
                     </div>
                     <div class="col-md">
                         <i class="mx-5">{{comment.comment}}</i>

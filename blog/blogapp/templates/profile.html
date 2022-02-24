@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block title %}
 Profile
 {% endblock %}
@@ -9,17 +10,13 @@ Profile
             {% if user.profile.picture|length > 1 %}
                 <div><img class="w-100 rounded-circle" src="{{user.profile.picture.url}}" alt=""></div>
             {% else %}
+            <div><img class="w-100 rounded-circle" src="{% static 'default-profile/default-profile.png' %}" alt=""></div>
+            {% endif %}
             {% if request.user == user.profile.user %}
-            <form action="/user/{{user.username}}/profile" enctype="multipart/form-data" method="post">
-                {% csrf_token %}
-                <label for=""><h4><b>UploadImage</b></h4></label>
-                <div><input class="input-group-text" type="file" name="img" id=""></div>
-                <button class="btn btn-dark mt-2">Upload</button>
-            </form>
-            {% else %}
-            <pre>No Picture</pre>
+            <a class="btn border-2 border-dark" href="/profile/{{user.profile.id}}/update">Update</a>
             {% endif %}
-            {% endif %}
+            
+            
             
             <div class="text-center mt-5">
                 <h1>{{user.profile.user.first_name}} {{user.profile.user.last_name}}</h1>
