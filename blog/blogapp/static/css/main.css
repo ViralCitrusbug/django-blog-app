@@ -9,3 +9,16 @@
     box-sizing: border-box;
     display: none;
 }
+
+.success{
+    color :green;
+}
+.info{
+    color: rgb(12, 184, 241);
+}
+.warning{
+    color:rgb(240, 240, 107);
+}
+.error{
+    color:red;
+}

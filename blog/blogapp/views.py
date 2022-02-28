@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import redirect, render
 from .models import Image, Post , Category, Profile,Comment
-
+import re
 ##  GLOBAL VARIABLE
 category_list = Category.objects.select_related()
 
@@ -81,6 +81,14 @@ def login(request):
     }
     return render(request , 'authentication/login.html',context)
 
+## EMAIL VALIDATION
+def email_validation(email):
+    pattern = '^[a-z 0-9]+[\._]?[a-z 0-9]+[@]\w+[.]\w{2,3}$'
+    if re.search(pattern,email):
+        return True
+    else:
+        return False
+        
 def signup(request):
     if request.method == "POST":
         firstname = request.POST.get('first_name')
@@ -90,15 +98,21 @@ def signup(request):
         password = request.POST.get('password')
         confirm_pass = request.POST.get('confirm_password')
         if len(firstname)!=0 and len(lastname)!=0 and len(user_name)!=0 and len(email)!=0 and len(password)!=0 and len(confirm_pass)!=0:
-            if not User.objects.filter(username=user_name).exists():
-                if password == confirm_pass:
-                    user = User.objects.create(first_name=firstname,last_name=lastname,username=user_name,password=make_password(password),email=email)
-                    user.save()
-                    return redirect('login')
+            if email_validation(email):
+                if len(password)>8 :
+                    if not User.objects.filter(username=user_name).exists():
+                        if password == confirm_pass:
+                            user = User.objects.create(first_name=firstname,last_name=lastname,username=user_name,password=make_password(password),email=email)
+                            user.save()
+                            return redirect('login')
+                        else:
+                            messages.info(request,"Password Doesn't match")
+                    else:
+                        messages.info(request,"Username Already Taken")
                 else:
-                    messages.info(request,"Password Doesn't match")
+                    print(0)
             else:
-                messages.info(request,"Username Already Taken")
+                messages.warning(request,"Invalid Email Adress !!")
         else:
             messages.info(request,"All field is required")
     context = {
@@ -111,7 +125,6 @@ def Prof(sender , instance , created , **kwargs):
     if created:
         prof = Profile.objects.create(user=instance)
         prof.save()
-        print(instance,created,kwargs,sender)
 
 
 def logout(request):
@@ -129,30 +142,33 @@ def post_by_category(request,category):
 
 def add_blog(request):
     category = Category.objects.all()
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            title = request.POST.get('title')
-            content = request.POST.get('content')
-            image = request.FILES.get('image')
-            cat = request.POST.get('cat')
-            other_images = request.FILES.getlist('multipleimage')
-            cat_check = Category.objects.filter(name=cat)
-            if len(title)!=0 and len(content)!=0 and len(image)!=0:
-                if cat_check.exists():
-                    post = Post.objects.create(category=cat_check.first(),title=title,content=content,post_image=image,user=request.user)
-                    post.save()
-                    for image in other_images:
-                        save_image = Image.objects.create(post=post,image=image)
-                        save_image.save()
-                    messages.success(request,"Your Post has been Successfully Added")
-                    return redirect('home')
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if request.user.is_authenticated:
+                title = request.POST.get('title')
+                content = request.POST.get('content')
+                image = request.FILES.get('image')
+                cat = request.POST.get('cat')
+                other_images = request.FILES.getlist('multipleimage')
+                cat_check = Category.objects.filter(name=cat)
+                if len(title)!=0 and len(content)!=0 and len(image)!=0:
+                    if cat_check.exists():
+                        post = Post.objects.create(category=cat_check.first(),title=title,content=content,post_image=image,user=request.user)
+                        post.save()
+                        for image in other_images:
+                            save_image = Image.objects.create(post=post,image=image)
+                            save_image.save()
+                        messages.success(request,"Your Post has been Successfully Added")
+                        return redirect('home')
+                    else:
+                        cats = Category.objects.create(name=cat)
+                        post = Post.objects.create(category=cats,title=title,content=content,post_image=image,user=request.user)
+                        post.save()
+                        messages.success(request,"Your Post has been Successfully Added")
                 else:
-                    cats = Category.objects.create(name=cat)
-                    post = Post.objects.create(category=cats,title=title,content=content,post_image=image,user=request.user)
-                    post.save()
-                    messages.success(request,"Your Post has been Successfully Added")
-            else:
-                messages.info(request,"This Field is Required")
+                    messages.info(request,"This Field is Required")
+    else:
+        return redirect('login')
     context = {
         "category" : category,
     }
