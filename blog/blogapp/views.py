@@ -104,7 +104,7 @@ def signup(request):
                         if password == confirm_pass:
                             user = User.objects.create(first_name=firstname,last_name=lastname,username=user_name,password=make_password(password),email=email)
                             user.save()
-                            return redirect('login')
+                            messages.success(request,"User Created SuccessFully")
                         else:
                             messages.info(request,"Password Doesn't match")
                     else:
