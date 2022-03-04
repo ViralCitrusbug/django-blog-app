@@ -6,12 +6,10 @@
 {% block body %}
 <div class="container">
     <div class="row mt-5">
-        <div  class="col-4">
+        <div class="col-4">
             {% for message in messages %}
-            <pre>ERROR : </pre><b><i class="{{message.tags}}">{{message}}</i></b>
+              <pre>ERROR : </pre><b><i class="{{message.tags}}">{{message}}</i></b>
             {% endfor %}
-            <div id="message">    
-            </div>
         </div>
         <div class="col w-100 border border-2 border-dark">
             <div class="bg-dark rounded rounded-3">
