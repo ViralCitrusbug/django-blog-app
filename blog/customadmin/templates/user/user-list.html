@@ -1,0 +1,46 @@
+{% include 'customadmin/index.html' %}
+{% block body %}
+
+<table class="table table-striped table-bordered table-hover" id="{{ opts.model_name }}-table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>IS Staff</th>
+            <th>Profile Image</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Email</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Is Staff</th>
+            <th>Profile Image</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody>
+        {% for user in users %}
+        <a href="#">
+            <tr class="{% if not user.is_active %} bg-secondary text-light {% elif  user.is_superuser %} bg-success  {% else %} text-dark {% endif %}">
+                <td class="">{{ user.email }}</td>
+                <td class="">{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.is_staff }}</td>
+                {% if user.profile_image %}
+                <td height="80px" width="180px"><img src="{{MEDIA_URL}}{{ user.profile_image.url }}" alt="no image" height="80x" width="180px"></td>
+                {% else %}
+                <td>No image</td>
+                {% endif %}
+                <td>{{user.is_active }}</td>
+            </tr>
+        </a>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}  

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blogapp.apps.BlogappConfig'
+    'blogapp.apps.BlogappConfig',
+    'customadmin.apps.CustomadminConfig'
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+    
+LOGIN_URL = "auth:auth_login"
+
+LOGOUT_REDIRECT_URL = "auth:auth_login"

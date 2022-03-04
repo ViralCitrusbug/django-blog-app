@@ -21,15 +21,15 @@ def home(request):
             post = Post.objects.filter(Q(title__icontains=search) | Q(content__icontains=search))
     if category_id:
         post = Post.objects.filter(category=category_id) 
-    post_per_page = 3
-    paginator = Paginator(post,post_per_page)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    # post_per_page = 3
+    # paginator = Paginator(post,post_per_page)
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
     context = {
         "posts":post,
         "category":category_list,
-        "page":page_obj,
-        "paginator":paginator
+        # "page":page_obj,
+        # "paginator":paginator
     }
     return render(request , "index.html", context)
 

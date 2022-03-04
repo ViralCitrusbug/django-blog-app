@@ -19,7 +19,7 @@ class Post(models.Model):
     post_image = models.ImageField(upload_to='post/post-image/',null=True)
 
     def __str__(self) -> str:
-        return self.title
+        return self.title   
 
     
 class Image(models.Model):
