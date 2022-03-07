@@ -1,6 +1,7 @@
 {% extends 'customadmin/change_list.html' %}
 {% load static %}
-
+{% load misc_filters %}
+{% load admin_extras %}
 
 
 {% block page_content %}
@@ -55,7 +56,9 @@
                             <td>No image</td>
                             {% endif %}
                             <td class="row-actions">
-                                {{o.is_active}}
+                                <td>{% show_check o.is_active %}</td>
+                            </td>
+                            <td class="row-actions">
                             </td>
                         </tr>
                         {% endfor %}
