@@ -1,0 +1,280 @@
+/* Login screen */
+.login-logo {
+  text-align: center;
+  img {
+    width: 100%;
+  }
+}
+
+/* Admin listing tables */
+table {
+  tbody {
+    td {
+      &.row-actions {
+        text-align: right;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+/* Override Sweet Alerts */
+.swal-text {
+  text-align: center;
+}
+
+.swal-footer {
+  text-align: center;
+}
+
+/* File Browse Fake */
+.file {
+  .file-name {
+    overflow: hidden;
+
+    height: 75px;
+
+    word-break: break-all;
+  }
+}
+
+.uploader {
+  position: relative;
+  .file-browse {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+
+    width: 300px;
+    height: 49px;
+
+    cursor: pointer;
+
+    opacity: 0;
+  }
+}
+
+/* Inline formset */
+.inline-formset {
+  input[type="checkbox"] {
+    display: none;
+  }
+  button {
+    outline: none;
+  }
+}
+
+/* Trix */
+.trix-button--icon-strike,
+.trix-button--icon-quote,
+.trix-button--icon-heading-1,
+.trix-button--icon-code,
+.trix-button--icon-decrease-nesting-level,
+.trix-button--icon-increase-nesting-level,
+.trix-button--icon-link {
+  display: none;
+}
+
+.fileinput {
+  margin-bottom: 1px !important;
+}
+
+/* Datatables pagination */
+.dataTables_wrapper {
+  .pagination {
+    display: inline-block;
+    li {
+      display: inline;
+    }
+  }
+}
+
+/* Override ibox-title */
+// .ibox-title {
+//   padding: 15px 15px 8px 15px;
+//   .ibox-tools {
+//     position: relative;
+//     right: 0;
+//     top: 0;
+//   }
+// }
+
+.breadcrumb-heading {
+  padding: 10px 0 10px 10px;
+  h2 {
+    margin: 0px 0 5px 0;
+  }
+}
+
+/* Override BS4 */
+.breadcrumb-item {
+  &::before {
+    font-weight: normal;
+  }
+  &.active {
+    font-weight: bold;
+  }
+}
+
+.section-header {
+  margin: 0 0 20px 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* UNIVERSAL STYLES */
+/* -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "HCo Gotham";
+  src: url(../fonts/gotham/2967B9A0E7E4EDC83.woff2) format("woff2"),
+    url(../fonts/gotham/2967B9A0E7E4EDC83.woff) format("woff");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HCo Gotham";
+  src: url(../fonts/gotham/CF9B3AC6C5090E643.woff2) format("woff2"),
+    url(../fonts/gotham/CF9B3AC6C5090E643.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HCo Gotham";
+  src: url(../fonts/gotham/9F83F41298FA3D4A1.woff2) format("woff2"),
+    url(../fonts/gotham/9F83F41298FA3D4A1.woff) format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HCo Gotham";
+  src: url(../fonts/gotham/DA192960645B30FA9.woff2) format("woff2"),
+    url(../fonts/gotham/DA192960645B30FA9.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HCo Gotham";
+  src: url(../fonts/gotham/6330A3369D395850E.woff2) format("woff2"),
+    url(../fonts/gotham/6330A3369D395850E.woff) format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HCo Gotham";
+  src: url(../fonts/gotham/8F62100A3BB6391A1.woff2) format("woff2"),
+    url(../fonts/gotham/8F62100A3BB6391A1.woff) format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
+body {
+  font-family: "HCo Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 34px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 26px;
+}
+h4 {
+  font-size: 22px;
+}
+h5 {
+  font-size: 18px;
+}
+
+.ibox-title {
+  h5 {
+    font-size: 18px;
+  }
+}
+
+/* Sidebar nav overrides */
+.navbar-default {
+  background-color: transparent;
+  background: linear-gradient(to bottom, #3554a3 0, #1c3385 25%);
+}
+
+.nav > li.active,
+ul.nav-second-level {
+  background: none;
+}
+
+.nav {
+  .nav-header {
+    background-color: transparent;
+    a {
+      padding: 0;
+    }
+  }
+
+  li {
+    &.active {
+      border-left: 4px solid #0367d8;
+      background-color: transparent;
+    }
+  }
+}
+
+/* Top nav overrides */
+.nav {
+  &.navbar-right {
+    li {
+      a {
+        color: #0266d5;
+      }
+    }
+  }
+}
+
+/* Footer overrides */
+.footer {
+  strong {
+    color: #0266d5;
+  }
+  a {
+    &.hidden-link {
+      color: #676a6c;
+      cursor: default;
+      strong {
+        color: inherit;
+      }
+    }
+  }
+}
+
+label {
+  font-weight: bold;
+}
+
+.metismenu {
+  .arrow {
+    line-height: 2rem;
+  }
+  .fa-2x {
+    vertical-align: middle;
+    padding-bottom: 0.2rem;
+  }
+}
+
+.bootstrap-duallistbox-container {
+  label {
+    font-weight: normal;
+  }
+}

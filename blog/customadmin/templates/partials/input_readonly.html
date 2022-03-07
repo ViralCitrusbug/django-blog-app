@@ -1,0 +1,14 @@
+<div class="form-group">
+
+  <label for="{{ field.auto_id }}">
+    {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+  </label>
+  <!-- {{ field.label_tag }} -->
+
+  <div class="">
+    <input type="text" name="{{ field.name }}" placeholder="{{ field.value }}" class="textinput textInput form-control"
+      readonly="" id="{{ field.auto_id }}">
+    <small id="hint_{{ field.auto_id }}" class="form-text text-muted">{{ field.help_text|safe }}</small>
+  </div>
+
+</div>

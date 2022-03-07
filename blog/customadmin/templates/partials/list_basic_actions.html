@@ -1,0 +1,9 @@
+{% load misc_filters %}
+
+{% if has_view_permission or has_change_permission or has_delete_permission %}
+    <a href="{% url opts|admin_urlname:'delete' obj.pk|admin_urlquote %}" title="Edit" class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt"></i></a>
+{% endif %}
+
+{% if has_delete_permission %}
+    <a data-title="{{ obj }}" title="Delete" href="{% url opts|admin_urlname:'delete' obj.pk|admin_urlquote %}" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></a>
+{% endif %}

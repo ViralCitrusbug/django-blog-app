@@ -1,16 +1,188 @@
-{% extends 'base.html' %}
-{% block body %}
+{% extends 'customadmin/base.html' %}
 
-<div class="row">
-    <div class="col-3">
-        <ul class="list-group mt-5">
-            <li class="list-group-item border-dark py-3"><a class="text-dark text-decoration-none" href="/customadmin/users">User</a></li>
-            <li class="list-group-item border-dark py-3">A second item</li>
-            <li class="list-group-item border-dark py-3">A third item</li>
-            <li class="list-group-item border-dark py-3">A fourth item</li>
-            <li class="list-group-item border-dark py-3">And a fifth one</li>
-        </ul>
+{% load static %}
+
+{% load  %}
+
+{% block title %}Dashboard{% endblock%}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+
+{% now "Y" as year_arg %}
+{% now "M" as month_arg %}
+{% now "d" as day_arg %}
+
+
+
+
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="ibox ">
+        <div class="ibox-title">
+          <div class="ibox-tools">
+          </div>
+          <h5>Users</h5>
+        </div>
+        <div class="ibox-content">
+          <h3 class="no-margins">{{ user_count }}</h3>
+          <small>Total users joined</small>
+        </div>
+      </div>
     </div>
 
+    <div class="col-lg-3">
+      <div class="ibox ">
+        <div class="ibox-title">
+          <div class="ibox-tools">
+          </div>
+          <h5>Purchased Products</h5>
+        </div>
+        <div class="ibox-content">
+          <h3 class="no-margins">{{ user_count }}</h3>
+          <small>Total products purchased</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="ibox ">
+        <div class="ibox-title">
+          <div class="ibox-tools">
+          </div>
+          <h5>Users</h5>
+        </div>
+        <div class="ibox-content">
+          <h3 class="no-margins">{{ user_count }}</h3>
+          <small>Total services booked</small>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox ">
+      <div class="ibox-title">
+        <h5>Orders</h5>
+        <div class="ibox-tools">
+          <div class="btn-group">
+            <button type="button" class="btn btn-xs btn-white active">Today</button>
+            <button type="button" class="btn btn-xs btn-white">Monthly</button>
+            <button type="button" class="btn btn-xs btn-white">Annual</button>
+          </div>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="flot-chart">
+              <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <ul class="stat-list">
+              <li>
+                <h2 class="no-margins">14</h2>
+                <small>Recent Users</small>
+                <div class="stat-percent">48% <i class="fa fa-arrow-up text-navy"></i></div>
+                <div class="progress progress-mini">
+                  <div style="width: 48%;" class="progress-bar"></div>
+                </div>
+              </li>
+              <li>
+                <h2 class="no-margins ">12</h2>
+                <small>Recent Marketplace Orders</small>
+                <div class="stat-percent">60% <i class="fa fa-arrow-down text-navy"></i></div>
+                <div class="progress progress-mini">
+                  <div style="width: 60%;" class="progress-bar"></div>
+                </div>
+              </li>
+              <li>
+                <h2 class="no-margins ">10</h2>
+                <small>Recent Event Orders</small>
+                <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
+                <div class="progress progress-mini">
+                  <div style="width: 22%;" class="progress-bar"></div>
+                </div>
+              </li>
+              <li>
+                <h2 class="no-margins ">9</h2>
+                <small>Flash Deals</small>
+                <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
+                <div class="progress progress-mini">
+                  <div style="width: 38%;" class="progress-bar"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% comment %} <div class="row">
+
+  <div class="col-lg-4">
+    <div class="ibox ">
+      <div class="ibox-title">
+        <div class="ibox-tools">
+          <span class="label label-success float-right">Annnual</span>
+        </div>
+        <h5>Visits</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">40,886,200</h1>
+        <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+        <small>Total income</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="ibox ">
+      <div class="ibox-title">
+        <div class="ibox-tools">
+          <span class="label label-info float-right">Monthly</span>
+        </div>
+        <h5>Visits</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">275,800</h1>
+        <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+        <small>New orders</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="ibox ">
+      <div class="ibox-title">
+        <div class="ibox-tools">
+          <span class="label label-primary float-right">Today</span>
+        </div>
+        <h5>Visits</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">106,120</h1>
+        <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+        <small>New visits</small>
+      </div>
+    </div>
+  </div>
+
+</div> {% endcomment %}
+<!-- /row -->
+
 {% endblock %}

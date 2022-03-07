@@ -1,0 +1,51 @@
+{% extends 'customadmin/base_section.html' %}
+{% load static %}
+
+{% block title %}
+    {{ opts.verbose_name_plural|capfirst }}
+
+{% endblock%}
+
+
+{% block page_header %}
+
+    {% if opts.verbose_name_plural == 'groups' %}
+
+    User Roles
+
+    {% else %}
+
+    {{ opts.verbose_name_plural|capfirst }}
+
+    {% endif %}
+
+    
+{% endblock%}
+
+
+{% block current_breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'customadmin:index' %}"></a>
+</li>
+<li class="breadcrumb-item active">
+
+
+  {% if opts.verbose_name_plural == 'groups' %}
+
+    User Roles
+
+    {% else %}
+
+    {{ opts.verbose_name_plural|capfirst }}
+
+    {% endif %}
+
+
+
+</li>
+{% endblock%}
+
+
+{% block page_content %}
+    Changelist content goes here.
+{% endblock %}

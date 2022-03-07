@@ -64,6 +64,7 @@ def profile(request,username):
 
 def login(request):
     if request.method == "POST":
+        print(request.POST)
         user_name = request.POST.get('username')
         password = request.POST.get('password')
         if User.objects.filter(username=user_name).exists():

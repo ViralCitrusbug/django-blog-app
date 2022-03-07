@@ -200,6 +200,7 @@ class Login(View):
         }
         return render(request,"authentication/login.html",context)
     def post(self,request):
+        print(request.POST)
         user_name = request.POST.get('username')
         password = request.POST.get('password')
         if User.objects.filter(username=user_name).exists():

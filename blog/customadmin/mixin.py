@@ -43,4 +43,4 @@ class LoginRequiredMixin(AccessMixin):
             if  request.user.is_superuser:
                 return super().dispatch(request, *args, **kwargs)
         
-        return redirect('custom-admin-login')
+        return redirect('customadmin:custom-admin-login')

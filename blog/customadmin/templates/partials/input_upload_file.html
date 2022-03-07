@@ -1,0 +1,18 @@
+<div class="form-group">
+    <label for="{{ field.auto_id }}">
+        {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+    </label>
+    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+        <div class="form-control" data-trigger="fileinput">
+            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+            <span class="fileinput-filename">{{ field.value.name }}</span>
+        </div>
+        <span class="input-group-addon btn btn-default btn-file">
+            <span class="fileinput-new">Select file</span>
+            <span class="fileinput-exists">Change</span>
+            <input type="file" name="{{ field.name }}" id="{{ field.auto_id }}" accept="{{ mime_types }}" />
+        </span>
+        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+    </div>
+    <small>{{ field.help_text }}</small>
+</div>

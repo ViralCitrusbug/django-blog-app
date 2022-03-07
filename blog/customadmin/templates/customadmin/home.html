@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  {% include "customadmin/includes/favicons.html" %}
+
+  <title>{% block title %}Dashboard{% endblock %} | {{ PROJECT_TITLE }}</title>
+
+  {% block css %}
+  <!-- Start bare minimum -->
+  <link href="{% static 'customadmin/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'customadmin/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'customadmin/font-awesome-5/css/all.min.css' %}" rel="stylesheet">
+
+  <!-- Toastr style -->
+  <link href="{% static 'customadmin/css/plugins/toastr/toastr.min.css' %}" rel="stylesheet">
+
+  <!-- Gritter -->
+  <link href="{% static 'customadmin/js/plugins/gritter/jquery.gritter.css' %}" rel="stylesheet">
+
+  <link href="{% static 'customadmin/css/animate.css' %}" rel="stylesheet">
+  <link href="{% static 'customadmin/css/style.min.css' %}" rel="stylesheet">
+  <!-- End bare minimum -->
+  {% endblock css %}
+
+  {% block js_head %}
+  <script src="{% static 'customadmin/js/moment/moment.js' %}"></script>
+  <script src="{% static 'customadmin/js/utils.js' %}"></script>
+  {% endblock js_head %}
+
+</head>
+
+<body class="fixed-sidebar mini-navbar">
+
+  <div id="wrapper">
+
+
+
+    <div id="page-wrapper" class="gray-bg">
+
+      <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+          <div class="navbar-header">
+            <!-- <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+              <i class="fa fa-bars"></i>
+            </a> -->
+            <!--<form role="search" class="navbar-form-custom" method="post" action="#">
+              <div class="form-group">
+                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+              </div>
+            </form>-->
+          </div>
+          <ul class="nav navbar-top-links navbar-right">
+            {% if request.user.is_authenticated %}
+            <li>
+              <a href="{% url 'customadmin:user-update' pk=request.user.pk %}">
+                <i class="fa fa-user"></i> {{ request.user }}
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'auth:auth_logout' %}">
+                <i class="fa fa-sign-out-alt"></i> Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+      {% block breadcrumbs %}{% endblock breadcrumbs %}
+
+      <div class="container-fluid wrapper wrapper-content animated fadeInRight">
+        {% include 'customadmin/partials/messages.html' %}
+        {% block content %}{% endblock content %}
+      </div>
+
+      <div class="footer fixed">
+        <div>
+          <strong>Copyright</strong> &copy; {% now 'Y' %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {% block js %}
+  <!-- Mainly scripts -->
+  <script src="{% static 'customadmin/js/jquery-3.1.1.min.js' %}"></script>
+  <script src="{% static 'customadmin/js/popper.min.js' %}"></script>
+  <script src="{% static 'customadmin/js/bootstrap.min.js' %}"></script>
+  {% comment %}
+  <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script> {% endcomment %}
+
+  <script src="{% static 'customadmin/js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+  <script src="{% static 'customadmin/js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+  <!-- Custom and plugin javascript -->
+  <script src="{% static 'customadmin/js/inspinia.js' %}"></script>
+  <script src="{% static 'customadmin/js/plugins/pace/pace.min.js' %}"></script>
+
+  <!-- jQuery UI -->
+  <script src="{% static 'customadmin/js/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+
+  <!-- GITTER -->
+  <script src="{% static 'customadmin/js/plugins/gritter/jquery.gritter.min.js' %}"></script>
+
+  <!-- Toastr -->
+  <script src="{% static 'customadmin/js/plugins/toastr/toastr.min.js' %}"></script>
+
+  <!-- Sweet alert -->
+  <script src="{% static 'customadmin/js/plugins/sweetalert/sweetalert.min.js' %}"></script>
+
+  <!-- Project -->
+  <script src="{% static 'customadmin/js/customadmin.js' %}"></script>
+  {% endblock js %}
+
+</body>
+
+</html>

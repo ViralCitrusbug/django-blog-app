@@ -1,0 +1,105 @@
+{% extends 'customadmin/home.html' %}
+{% load static %}
+
+{% block title %}{% endblock%}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'customadmin/css/plugins/iCheck/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/css/plugins/dualListbox/bootstrap-duallistbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/css/plugins/dataTables/datatables.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'customadmin/css/plugins/datapicker/datepicker3.css' %}" rel="stylesheet"> -->
+    <link href="{% static 'customadmin/js/datetimepicker/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"> {% endcomment %}
+    <link href="{% static 'customadmin/js/dragula/dragula.min.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/css/plugins/jasny/jasny-bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/css/plugins/chosen/bootstrap-chosen.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/js/trix/trix.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/js/ekko-lightbox/ekko-lightbox.css' %}" rel="stylesheet">
+
+    {% comment %} <link href="{% static 'customadmin/css/plugins/select2/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'customadmin/css/plugins/select2/select2-bootstrap4.min.css' %}" rel="stylesheet"> {% endcomment %}
+{% endblock %}
+
+{% block js_head %}
+    {{ block.super }}
+    <script>window.CKEDITOR_BASEPATH = "{% static 'ckeditor/ckeditor/' %}";</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row wrapper border-bottom white-bg breadcrumb-heading">
+    <div class="col-lg-10">
+        <h2>{% block page_header %}{{ opts.verbose_name|capfirst }}{% endblock %}</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% block current_breadcrumb %}{% endblock %}
+            </ol>
+        </nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    {% block formset_errors %}{% endblock%}
+
+    {% block page_content %}{% endblock%}
+{% endblock%}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'customadmin/js/plugins/iCheck/icheck.min.js' %}"></script>
+<script src="{% static 'customadmin/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js' %}"></script>
+<script src="{% static 'customadmin/js/plugins/jasny/jasny-bootstrap.min.js' %}"></script>
+<script src="{% static 'customadmin/js/plugins/chosen/chosen.jquery.js' %}"></script>
+
+<!-- Data Tables -->
+<script src="{% static 'customadmin/js/plugins/dataTables/datatables.min.js' %}"></script>
+<script src="{% static 'customadmin/js/plugins/dataTables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.13/sorting/datetime-moment.js"></script>
+<script>
+    // correctly sort django datetime columns (M d, Y g:i A)
+    $.fn.dataTable.moment('MMM DD, YYYY h:mm A');
+</script>
+
+<!-- Dragula -->
+<script src="{% static 'customadmin/js/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<script src="{% static 'customadmin/js/dragula/dragula.min.js' %}"></script>
+
+<!-- Datetime picker -->
+<!-- <script src="{% static 'customadmin/js/plugins/datapicker/bootstrap-datepicker.js' %}"></script> -->
+<script src="{% static 'customadmin/js/datetimepicker/bootstrap-datetimepicker.min.js' %}"></script>
+{% comment %} <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> {% endcomment %}
+
+<!-- iCheck -->
+<script src="{% static 'customadmin/js/plugins/iCheck/icheck.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+
+<script src="{% static 'customadmin/js/trix/trix.js' %}"></script>
+
+<!-- Ekko lightbox -->
+<script src="{% static 'customadmin/js/ekko-lightbox/ekko-lightbox.js' %}"></script>
+<script>
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+</script>
+
+<!-- Typehead -->
+<script src="{% static 'customadmin/js/plugins/typehead/bootstrap3-typeahead.min.js' %}"></script>
+
+{% comment %} <!-- Select2 -->
+<script src="{% static 'customadmin/js/plugins/select2/select2.full.min.js' %}"></script> {% endcomment %}
+
+<!-- Ckeditor -->
+<script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

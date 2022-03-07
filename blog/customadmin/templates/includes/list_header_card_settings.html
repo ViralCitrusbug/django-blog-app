@@ -1,0 +1,22 @@
+{% load static %}
+{% load i18n %}
+{% load admin_extras %}
+{% load misc_filters %}
+
+<header class="list-header card mb-4">
+  <div class="card-body clearfix">
+    <div class="float-left">
+      <h5 class="card-title">{{ title }}</h5>
+      <p class="card-subtitle text-muted">{{ subtitle }}</p>
+    </div>
+
+    {% if user.is_superuser %}
+      {% if has_add_permission and show_button %}
+      <div class="float-right lead">
+        <a href="{% url opts|admin_urlname:'create' %}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> New {{ opts.verbose_name|capfirst }}</a>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</header>
+<!-- /card -->

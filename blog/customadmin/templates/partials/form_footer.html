@@ -1,0 +1,17 @@
+{% load admin_extras %}
+{% load misc_filters %}
+{% load i18n %}
+
+<div class="modal-footer">
+    {% if object and has_delete_permission %}
+        <a data-title="{{ object }}" title="Delete" href="{% url opts|admin_urlname:'delete' object.pk|admin_urlquote %}" class="btn-delete btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
+    {% endif %}
+
+    {# <a href="javascript:history.back()" class="btn btn-white">Cancel</a> #}
+    
+    {% if has_add_permission or has_change_permission %}
+         {% comment %} <input type="submit" value="Save" class="btn btn-primary"> {% endcomment %}
+         <button class="btn btn-primary" type="submit"><i class="{% if save_icon %}{{ save_icon }}{% else %}fa fa-check{% endif %}"></i> {% if save_label %}{{ save_label }}{% else %}Save{% endif %}</button>
+    {% endif %} 
+ 
+</div>

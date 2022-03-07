@@ -1,0 +1,81 @@
+{% extends 'customadmin/change_list.html' %}
+{% load static %}
+{% load admin_extras %}
+{% load misc_filters %}
+{% load i18n %}
+
+
+{% block page_content %}
+    {% csrf_token %}
+
+    
+
+    {% include "customadmin/includes/list_header_card.html" with title="Create a new Service" subtitle="Create a new Service." show_button=True %}
+
+    <div class="ibox float-e-margins">
+        {% comment %} <div class="ibox-title">
+            <div class="ibox-tools">
+                {% if perms.users.add_user %}
+                <a href="{% url opts|admin_urlname:'create' %}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Add {{ opts.verbose_name|capfirst }}</a>
+                {% endif %}
+            </div>
+        </div> {% endcomment %}
+
+
+        <div class="ibox-content">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="{{ opts.model_name }}-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Service Category</th>
+                            <th>Booking Charge</th>
+                            <th>Service Charge</th>
+                            <th>Related Service</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Service Category</th>
+                            <th>Booking Charge</th>
+                            <th>Service Charge</th>
+                            <th>Related Service</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for o in object_list %}
+                        <tr>
+                            <td>{{ o.name }}</td>
+                            <td>{{ o.service_category.category_name }}</td>
+                            <td>{{ o.booking_charge|floatformat:2 }}</td>
+                            <td>{{ o.service_charge|floatformat:2 }}</td>
+                            <td>{% if o.related_to %}{{ o.related_to.name }}{% else %}None{% endif %}</td>
+                            <td class="row-actions">
+                                {% include "customadmin/partials/list_row_more_actions.html" %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'customadmin/js/userroles.js' %}"></script>
+
+<script>
+    var pagination_url = "{% url opts|admin_urlname:'list-ajax' %}";
+    $(function () {
+        userroles.service.index();
+    });
+</script>
+{% endblock %}

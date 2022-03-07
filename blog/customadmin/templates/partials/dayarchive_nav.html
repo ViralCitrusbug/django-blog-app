@@ -1,0 +1,13 @@
+{% load admin_extras %}
+{% load misc_filters %}
+{% load i18n %}
+
+<p>
+    {% if previous_day %}
+        Previous Day: <a href="{% url opts|admin_urlname:'list' previous_day|date:'Y' previous_day|date:'M' previous_day|date:'d' %}">{{ previous_day }}</a>
+    {% endif %}
+    {% if previous_day and next_day %}--{% endif %}
+    {% if next_day %}
+        Next Day: <a href="{% url opts|admin_urlname:'list' next_day|date:'Y' next_day|date:'M' next_day|date:'d' %}">{{ next_day }}</a>
+    {% endif %}
+</p>

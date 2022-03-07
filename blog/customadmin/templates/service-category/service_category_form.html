@@ -1,0 +1,103 @@
+{% extends 'customadmin/change_form.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load admin_extras %}
+{% load misc_filters %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block page_content %}
+<form id="{{ opts.model_name }}-form" action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+
+    {% include "customadmin/partials/form_hidden_fields.html" %}
+
+    <div class="ibox float-e-margins">
+
+        {% include "customadmin/partials/ibox_title.html" with ibox_title="Add Service Category Details" icon_class="fas fa-sign-in-alt" only %}
+
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form.category_name|as_crispy_field }}
+                </div>
+                <div class="col-sm-12">
+                    {{ form.category_description|as_crispy_field }}
+                </div>
+                <div class="col-sm-12">
+                    {{ form.method_description|as_crispy_field }}
+                </div>
+            </div>
+        </div>
+        <!-- /ibox-content -->
+
+        <br>
+        <div class="ibox float-e-margins">
+            {% include "customadmin/partials/ibox_title.html" with ibox_title="Add Category Image " icon_class="fas fa-image" only %}
+
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {% for formset in inlines %}
+                        {% if formset.prefix == 'categoryimage_set' %}
+                        <div class="form-group">
+                            <table>
+                                {{ formset.management_form|crispy }}
+                                {% for form in formset.forms %}
+                                <tr class="{% cycle 'row1' 'row2' %} formset_row-{{ formset.prefix }}">
+                                    {% for field in form.visible_fields %}
+                                    <td>
+                                        {# Include the hidden fields in the form #}
+                                        {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {{ field.errors.as_ul }}
+                                        {{ field|as_crispy_field }}
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+
+                            </table>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "customadmin/partials/form_footer.html" %}
+
+</form>
+
+{% endblock %}
+
+
+{% block js %}
+{{ block.super }}
+
+<script src="{% static 'customadmin/js/jquery.formset.js' %}"></script>
+<script>
+    $(function () {
+        $('.formset_row-categoryimage_set').formset({
+            addText: 'Add Another',
+            deleteText: 'Remove',
+            prefix: 'creator',
+            addCssClass: 'add-row btn btn-success',
+            deleteCssClass: 'hidden btn-delete btn btn-danger',
+
+        });
+    });
+</script>
+
+<script src="{% static 'customadmin/js/userroles.js' %}"></script>
+<script>
+    $(function () {
+        userroles.categoryimage.details();
+    });
+</script>
+{% endblock %}

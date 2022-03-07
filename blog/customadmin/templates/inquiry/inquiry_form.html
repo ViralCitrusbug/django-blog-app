@@ -1,0 +1,132 @@
+{% extends 'customadmin/change_form.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load admin_extras %}
+{% load misc_filters %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block page_content %}
+<form id="{{ opts.model_name }}-form" action="" method="post" enctype="multipart/form-data" autocomplete="off">
+    
+        {% include "customadmin/partials/form_hidden_fields.html" %}
+        
+        <div class="ibox float-e-margins">
+
+            {% include "customadmin/partials/ibox_title.html" with ibox_title="Plan Details" icon_class="fas fa-sign-in-alt" only %}
+
+            <div class="ibox-content">
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        
+                        {{ form.name|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.phone|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.inquiry_type|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.note|as_crispy_field }}
+                    </div>
+                </div>             
+            </div>
+            <!-- /ibox-content -->
+
+        </div>
+        <!-- /ibox --> 
+        <div class="ibox float-e-margins">
+            
+            {% include "customadmin/partials/ibox_title.html" with ibox_title="Add Covers" icon_class="fas fa-sign-in-alt" only %}
+            
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                  
+                        {% for formset in inlines %}
+                        <div  class="form-group">
+                            <table>
+                                
+                                {{ formset.management_form|crispy }}
+                                {% for form in formset.forms %}
+                                <tr class="formset_row-{{formset.prefix}}">
+                                    {% for field in form.visible_fields %}
+                                    <td>
+                                        {# Include the hidden fields in the form #}
+                                        {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {{ field.errors.as_ul }}
+                                        
+                                        {{ field|as_crispy_field }}
+
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                                
+                            </table>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        {% include "customadmin/partials/form_footer.html" %}
+        
+    </form>
+
+{% endblock %}
+
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'customadmin/js/jquery.formset.js' %}"></script>
+<script>
+    $(function() {
+        $('.formset_row-plancover_set').formset({
+            addText: 'Add Another',
+            deleteText: 'Remove',
+            prefix: 'creator',
+            addCssClass: 'add-row btn btn-success',
+            deleteCssClass: 'hidden btn-delete btn btn-danger',
+
+        });
+    });
+</script>
+
+<script src="{% static 'customadmin/js/userroles.js' %}"></script>
+<script>
+    $(function() {
+        userroles.creators.details();
+    });
+</script>
+<script>
+    $(function() {
+        var d = new Date().getDate()
+        $('#id_sessiontimeslot-0-slot_datetime').datetimepicker({
+            format:'Y-m-d H:i',
+            minDate:`${d}`,
+        });
+        $('#id_sessiontimeslot-1-slot_datetime').datetimepicker({
+            format:'Y-m-d H:i',
+        });
+        $('#id_sessiontimeslot-2-slot_datetime').datetimepicker({
+            format:'Y-m-d H:i',
+        });
+        $('#id_sessiontimeslot-3-slot_datetime').datetimepicker({
+            format:'Y-m-d H:i',
+        });
+});
+</script>
+{% endblock %}

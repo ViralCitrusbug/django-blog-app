@@ -1,0 +1,16 @@
+<div id="div_id_host" class="form-group">
+
+  <label for="{{ field.auto_id }}" class="col-form-label">
+    {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+  </label>
+
+  <div class="input-group">
+      <span class="input-group-addon">
+        <i class="{{ icon_class }}"></i>
+      </span>
+      <input type="text" name="{{ field.name }}" value="{% if field.value %}{{ field.value }}{% endif %}" class="typeahead textinput textInput form-control"
+      id="{{ field.auto_id }}" placeholder="Start typing ..." autocomplete="off">
+      <small id="hint_{{ field.auto_id }}" class="form-text text-muted">{{ field.help_text|safe }}</small>
+  </div>
+
+</div>

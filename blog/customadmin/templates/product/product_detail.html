@@ -1,0 +1,48 @@
+{% extends 'customadmin/change_list.html' %}
+{% load static %}
+{% load admin_extras %}
+{% load misc_filters %}
+{% load i18n %}
+
+
+{% block page_content %}
+    {% csrf_token %}
+
+    <div class="ibox float-e-margins">
+        
+        <div class="ibox-content">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="{{ opts.model_name }}-table">
+                    <thead>
+                        <tr>
+                            <td colspan="2" class="h5 text-left border-white">{{product_detail.name|capfirst}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="h5 text-left" colspan="2">Product Detail</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="h6">
+                                Name : {{product_detail.name|capfirst}} <br>
+                                <hr>
+                                Price : {{product_detail.price}}
+                                <hr>
+                                Detail : {{product_detail.detail}}
+                                <hr>
+                                {% if product_detail.product_image %}
+                                Product Image : <img src="{{MEDIA_URL}}{{ product_detail.product_image.url }}" alt="no image" height="80x" width="180px">
+                                {% else %}
+                                Product Image : No Image
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

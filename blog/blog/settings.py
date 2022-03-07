@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blogapp.apps.BlogappConfig',
-    'customadmin.apps.CustomadminConfig'
+    'customadmin.apps.CustomadminConfig',
+     'widget_tweaks',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +133,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR,'static/')
 ]
 MEDIA_URL = '/media/'
 # Path where media is stored
@@ -141,3 +143,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_URL = "auth:auth_login"
 
 LOGOUT_REDIRECT_URL = "auth:auth_login"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

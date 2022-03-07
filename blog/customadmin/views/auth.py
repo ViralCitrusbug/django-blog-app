@@ -16,9 +16,9 @@ class LoginView(View,LoginRequiredMixin):
             if password_check:
                 auth.login(request,user)
                 print("YOU ARE LOGGED IN")
-                return redirect('index')
+                return redirect('customadmin:index')
             else:
-                messages.warning(request,"you are Not ")
+                messages.warning(request,"Please Fill All Credentials")
         else:
             messages.warning(request,"you are Not SuperUser")
         return render(request,"auth/custom-admin-login.html")
