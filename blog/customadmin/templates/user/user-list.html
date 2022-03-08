@@ -55,10 +55,8 @@
                             {% else %}
                             <td>No image</td>
                             {% endif %}
-                            <td class="row-actions">
-                                <td>{% show_check o.is_active %}</td>
-                            </td>
-                            <td class="row-actions">
+                            <td class="row-actions ">
+                                {% show_check o.is_active %}
                             </td>
                         </tr>
                         {% endfor %}

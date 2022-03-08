@@ -21,15 +21,15 @@ def home(request):
             post = Post.objects.filter(Q(title__icontains=search) | Q(content__icontains=search))
     if category_id:
         post = Post.objects.filter(category=category_id) 
-    # post_per_page = 3
-    # paginator = Paginator(post,post_per_page)
-    # page_number = request.GET.get('page')
-    # page_obj = paginator.get_page(page_number)
+    post_per_page = 3
+    paginator = Paginator(post,post_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         "posts":post,
         "category":category_list,
-        # "page":page_obj,
-        # "paginator":paginator
+        "page":page_obj,
+        "paginator":paginator
     }
     return render(request , "index.html", context)
 
@@ -41,7 +41,7 @@ def blog_detail(request,post_id):
         "comments":comment,
         "category":category_list
     }
-    return render(request,'blog_detail.html',context)
+    return render(request,'blog-detail.html',context)
 
 ## PROFILE
 
@@ -97,7 +97,7 @@ def signup(request):
         user_name = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        confirm_pass = request.POST.get('confirm_password')
+        confirm_pass = request.POST.get('confirm_password')  
         if len(firstname)!=0 and len(lastname)!=0 and len(user_name)!=0 and len(email)!=0 and len(password)!=0 and len(confirm_pass)!=0:
             if email_validation(email):
                 if len(password)>8 :

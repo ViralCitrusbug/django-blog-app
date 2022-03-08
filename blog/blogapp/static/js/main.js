@@ -75,7 +75,7 @@ $(document).ready(function(){
                     $("#confirm_password").removeClass('border-danger')
                     $("#confirm_password-lebel").addClass('text-dark')
                 }
-                alert("User Created")
+                // alert("User Created")
                 
             }
             },

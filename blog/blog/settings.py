@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'customadmin.apps.CustomadminConfig',
      'widget_tweaks',
     'crispy_forms',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

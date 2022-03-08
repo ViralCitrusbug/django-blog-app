@@ -1,4 +1,7 @@
+{% extends 'base/base.html' %}
 {% load static %}
+{% block body %}
+
 <div class="col-3">
     {% if user.profile.picture|length > 1 %}
         <div><img class="w-100 rounded-circle" src="{{user.profile.picture.url}}" alt=""></div>
@@ -13,9 +16,10 @@
         <div><input class="input-group-text" type="file" name="picture" accept="image/*" id="id_picture"></div>
         <button class="btn btn-dark mt-2">Upload</button>
     </form>
-    <button><a href="/profile/{{user.profile.id}}/update">Update</a></button>
+
     
     <div class="text-center mt-5">
         <h1>{{user.profile.user.first_name}} {{user.profile.user.last_name}}</h1>
     </div>
 </div>
+{% endblock %}

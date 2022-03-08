@@ -1,6 +1,4 @@
-from urllib import request
 from django.contrib import auth,messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password,make_password
 from django.core.paginator import Paginator
@@ -47,7 +45,7 @@ class PostDetail(View):
             "comments":comment,
             "category":category_list
         }
-        return render(request,'blog_detail.html',context)
+        return render(request,'blog-detail.html',context)
 
 class ProfileView(DetailView):
     model = User

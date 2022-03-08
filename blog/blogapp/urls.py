@@ -1,6 +1,6 @@
 from msilib.schema import Class
 from django.urls import path
-from . import views,classviews
+from . import views,classviews,serialize_view
 
 
 urlpatterns = [
@@ -27,6 +27,12 @@ urlpatterns = [
     path('blog/create',classviews.CreatePost.as_view(),name='create-blog'),
     path('user/logout',classviews.Logout.as_view(),name='logout'),
     path('user/login',classviews.Login.as_view(),name='login'),
-    path('post/filter/<str:category>',classviews.PostByCategory.as_view(),name="post-by-category")
+    path('post/filter/<str:category>',classviews.PostByCategory.as_view(),name="post-by-category"),
 
+
+    ##  API FUNCTION BASED VIEWS
+    path('api/post-list',serialize_view.post_list,name="api-postlist"),
+    path('api/users',serialize_view.user_list,name="api-user_list"),
+    path('api/user/<pk>',serialize_view.UserCRUD,name="api-user_list"),
+    path('api/profile-list',serialize_view.profile_list,name="api-profile_list")
 ]

@@ -13,17 +13,7 @@ Home
         <div class="d-flex">
             <div class="col-2">
                 <div class="col mx-4 mt-3">
-                    <h4>Category</h4>
-                    <div class="row">
-                        <div class="border  p-1 text-center">
-                            <a class="text-black text-decoration-none " href="/">All Blog</a>
-                        </div>
-                        {% for cat in category %}
-                        <div class="border p-1 text-center">
-                            <a class="text-black text-decoration-none " href="/?category={{cat.id}}">{{cat}}</a>
-                        </div>
-                        {% endfor %}
-                    </div>
+                    
                 </div>
                 {% for message in messages %}
                 <h4 class="text-success">{{message}}</h4>
