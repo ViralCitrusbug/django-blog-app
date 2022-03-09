@@ -9,6 +9,7 @@ django-environ==0.4.5
 django-extra-views==0.13.0
 django-filter==2.4.0
 django-multi-form-view==2.0.1
+django-rest-framework==0.1.0
 django-widget-tweaks==1.4.8
 djangorestframework==3.12.2
 google-api-core==1.26.3

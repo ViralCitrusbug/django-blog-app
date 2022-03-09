@@ -1,12 +1,9 @@
-from urllib import response
 from .models import Post,Profile
 from django.contrib.auth.models import User
 from .serializers import PostSerializers, ProfileSerializer,UserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-
-from blogapp import serializers
 
 @api_view(['GET',"POST"])
 def post_list(request):
