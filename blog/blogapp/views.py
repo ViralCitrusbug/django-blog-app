@@ -20,7 +20,7 @@ def home(request):
         if search:
             post = Post.objects.filter(Q(title__icontains=search) | Q(content__icontains=search))
     if category_id:
-        post = Post.objects.filter(category=category_id) 
+        post = Post.objects.filter(category=category_id)
     post_per_page = 3
     paginator = Paginator(post,post_per_page)
     page_number = request.GET.get('page')

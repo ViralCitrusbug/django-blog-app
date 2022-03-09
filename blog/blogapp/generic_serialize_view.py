@@ -14,6 +14,7 @@ class PostListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
     
     def post(self,request):
         # request.data['user'] = request.user.id
+        print(request.data)
         return self.create(request)
 
 class UserListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
