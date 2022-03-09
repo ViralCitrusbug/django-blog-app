@@ -1,13 +1,18 @@
-from distutils.file_util import write_file
 from rest_framework import serializers
-from . models import Post, Profile,User,Category
+from . models import Post, Profile,User
 
 class PostSerializers(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
     class Meta:
         model = Post
-        fields='__all__'
-    def create(self, validated_data):
-        return Post.objects.create(validated_data)
+        fields=['title','post_image','content','category',"user","id"]
+    def create(self,validated_data):
+
+        print(validated_data.get('category'))
+        new_post = Post.objects.create(**validated_data)
+        new_post.save()
+        return new_post
+
 
     def update(self, instance, validated_data):
         new_post = Post(**validated_data)
@@ -16,17 +21,19 @@ class PostSerializers(serializers.ModelSerializer):
         return new_post
 
 
-
-
-
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    id = serializers.CharField(read_only=True)
+
     class Meta:
         model = User
-        fields = ['first_name','last_name','username','email','password']
+        fields = ['first_name','last_name','username','email','password',"id"]
 
     def create(self, validated_data):
-        return User.objects.create(**validated_data)
+        user = User.objects.create(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
     def update(self, user, validated_data):
         new_user = User(**validated_data)
@@ -54,13 +61,14 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = "__all__"
+        fields = ['picture']
 
     def create(self, validated_data):
         return super().create(**validated_data)  
 
     def update(self, profile, validated_data):
         new_profile = Profile(**validated_data)
+        new_profile.user = profile.user
         new_profile.id = profile.id
         new_profile.save()
         return new_profile

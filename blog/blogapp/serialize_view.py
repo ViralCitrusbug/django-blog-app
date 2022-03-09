@@ -16,7 +16,7 @@ def post_list(request):
         return Response(response)
 
     if request.method == "POST":
-        serializer = PostSerializers(data=request.data)
+        serializer = PostSerializers(data=request.data,files=request.FILES)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

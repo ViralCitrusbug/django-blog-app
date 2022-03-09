@@ -191,6 +191,7 @@ class PostComment(View):
                 return redirect('login')
         else:
             return redirect('login')
+            
 class Login(View):
     def get(self,request):
         context = {
