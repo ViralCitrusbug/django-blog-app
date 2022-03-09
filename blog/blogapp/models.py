@@ -30,7 +30,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='user/profile/profile-pic')
     def __str__(self) -> str:
-        return self.user.first_name
+        return self.user.username
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)

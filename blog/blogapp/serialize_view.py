@@ -6,14 +6,26 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
+from blogapp import serializers
+
 @api_view(['GET',"POST"])
 def post_list(request):
-    post = Post.objects.all()
-    serializer = PostSerializers(post,many=True)
-    response = {
-        'serializer':serializer.data
-    }
-    return Response(response)
+    if request.method == "GET":
+        post = Post.objects.all()
+        serializer = PostSerializers(post,many=True)
+        response = {
+            'serializer':serializer.data
+        }
+        return Response(response)
+
+    if request.method == "POST":
+        serializer = PostSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
 
 @api_view(['GET',"POST"])
 def user_list(request):
@@ -47,7 +59,7 @@ def profile_list(request):
             return Response(serializer.errors)
 
 @api_view(['GET','DELET',"PUT"])
-def UserCRUD(request,pk):
+def user_crud(request,pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist :
@@ -61,6 +73,28 @@ def UserCRUD(request,pk):
     
     if request.method == "PUT":
         serializer = UserSerializer(user,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+
+@api_view(['GET','POST',"PUT","DELETE"])
+def profile_crud(request,pk):
+    try:
+        profile = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response("Profile Doesn't Exist")
+    
+    if request.method == "GET":
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+    if request.method == "DELETE":
+        profile.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    if request.method == "PUT":
+        serializer = ProfileSerializer(profile,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

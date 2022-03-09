@@ -33,6 +33,7 @@ urlpatterns = [
     ##  API FUNCTION BASED VIEWS
     path('api/post-list',serialize_view.post_list,name="api-postlist"),
     path('api/users',serialize_view.user_list,name="api-user_list"),
-    path('api/user/<pk>',serialize_view.UserCRUD,name="api-user_list"),
-    path('api/profile-list',serialize_view.profile_list,name="api-profile_list")
+    path('api/user/<pk>',serialize_view.user_crud,name="api-user-crud"),
+    path('api/profile-list',serialize_view.profile_list,name="api-profile_list"),
+    path('api/profile/<pk>',serialize_view.profile_crud,name="api-profile-crud")
 ]
