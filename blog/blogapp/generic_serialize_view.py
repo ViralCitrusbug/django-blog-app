@@ -5,7 +5,7 @@ from . serializers import PostSerializers, ProfileSerializer, UserSerializer
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly,IsAdminUser    
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView
 
@@ -15,7 +15,6 @@ class PostListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
     queryset = Post.objects.filter(soft_delete=False)
     serializer_class = PostSerializers
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
@@ -39,7 +38,6 @@ class UserListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
     serializer_class = UserSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    # permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self,request):
         return self.list(request)
@@ -51,8 +49,7 @@ class UserCRUD(mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.UpdateM
     queryset = User.objects.all()
     serializer_class = UserSerializer
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUser]
 
     def get(self,request,pk):
         return self.retrieve(request)
@@ -67,8 +64,8 @@ class ProfileListView(generics.GenericAPIView,mixins.ListModelMixin,mixins.Creat
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
     def get(self,request):
         return self.list(request)
 
@@ -92,8 +89,7 @@ class PostCRUD(generics.GenericAPIView,mixins.DestroyModelMixin,mixins.UpdateMod
     queryset = Post.objects.all()
     serializer_class = PostSerializers
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUser]
 
     def get_post(self,pk):
         try:
