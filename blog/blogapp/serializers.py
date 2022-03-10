@@ -7,7 +7,7 @@ class PostSerializers(serializers.ModelSerializer):
     soft_delete = serializers.CharField(read_only=True)
     class Meta:
         model = Post
-        fields=['title','post_image','content','category','user',"id","soft_delete"]
+        fields=['title','post_image','content','category',"id","soft_delete"]
     def create(self,validated_data):
         new_post = Post.objects.create(**validated_data)
         new_post.save()
@@ -17,6 +17,7 @@ class PostSerializers(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         new_post = Post(**validated_data)
         new_post.id = instance.id
+        new_post.user = instance.user
         new_post.save()
         return new_post
 
@@ -42,26 +43,13 @@ class UserSerializer(serializers.ModelSerializer):
         return new_user
 
 
-# class UserSerializer(serializers.Serializer):
-#     first_name = serializers.CharField()
-#     last_name = serializers.CharField()
-#     username = serializers.CharField()
-#     email = serializers.EmailField()
-    
-#     def create(self, validated_data):
-#         return User.objects.create(**validated_data)
-
-#     def update(self, user, validated_data):
-#         new_user = User(**validated_data)
-#         new_user.id = user.id
-#         new_user.save()
-#         return new_user
-
         
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(read_only=True)
+
     class Meta:
         model = Profile
-        fields = ['picture']
+        fields = ['picture','user']
 
     def create(self, validated_data):
         return super().create(**validated_data)  

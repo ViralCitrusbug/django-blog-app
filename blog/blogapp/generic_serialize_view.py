@@ -1,8 +1,5 @@
-from unicodedata import category
 from django.http import JsonResponse
 from rest_framework import mixins,generics
-
-from blogapp import serialize_classview
 from .models import Post,Profile
 from . serializers import PostSerializers, ProfileSerializer, UserSerializer
 from django.contrib.auth.models import User
@@ -24,17 +21,17 @@ class PostListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
 
     def get(self,request):
         category = request.GET.get('category')
-        print(category)
+        #print(category)
         self.queryset = Post.objects.filter(category__name=category)
         if len(self.queryset) == 0:
             return JsonResponse(f"No Post in {str(category).upper()} Category",safe=False)
         return  self.list(request)
     
     def post(self,request):
-        print(request.data)
-        print(request.user.id,request.user.username)
+        #print(request.data)
+        #print(request.user.id,request.user.username)
         request.data.update({'user':request.user.id})
-        print(request.data)
+        #print(request.data)
         return self.create(request)
 
 class UserListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
@@ -70,16 +67,13 @@ class ProfileCRUD(generics.GenericAPIView,mixins.RetrieveModelMixin,mixins.Destr
     
     serializer_class = ProfileSerializer
     def get(self,request,pk):
-        user = Profile.objects.get(pk=pk).user
-        token = Token.objects.get(user=user)
-        print(token)
         return self.retrieve(request)
     
     def put(self,request,pk):
         return self.update(request)
     
-    def delete(self,request,pk):
-        return self.destroy(request)
+    #  def delete(self,request,pk):
+    #      return self.destroy(request)
 
 class PostCRUD(generics.GenericAPIView,mixins.DestroyModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin):
     queryset = Post.objects.all()
@@ -90,12 +84,14 @@ class PostCRUD(generics.GenericAPIView,mixins.DestroyModelMixin,mixins.UpdateMod
             return post
         except Post.DoesNotExist:
             return False
+
     def get(self,request,pk):
         if self.get_post(pk):
             post = Post.objects.get(pk=pk)
             return self.retrieve(request)
         else:
             return JsonResponse("Post Not Found")
+
     def put(self,request,pk):
         return self.update(request)
     
