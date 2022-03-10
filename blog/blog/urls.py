@@ -17,11 +17,15 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path,include
+from blogapp.token import CustomAuthToken
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('blogapp.urls')),
-    path('customadmin/',include('customadmin.urls'))
+    path('customadmin/',include('customadmin.urls')),
+    path('get-token',CustomAuthToken.as_view())
+    # path('get-token',obtain_auth_token)
 ]
 
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

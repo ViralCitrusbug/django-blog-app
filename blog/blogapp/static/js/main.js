@@ -12,8 +12,9 @@ $("#username-error").hide()
 
 
 $(document).ready(function(){
-    $("#register-form").on('submit',function(e){
+    $("#submit").click(function(e){
         e.preventDefault();
+        console.log("Clicked");
         $.ajax({
             url:'/user/create',
             type:"post",
@@ -75,7 +76,8 @@ $(document).ready(function(){
                     $("#confirm_password").removeClass('border-danger')
                     $("#confirm_password-lebel").addClass('text-dark')
                 }
-                // alert("User Created")
+                $("#submit").attr('type','submit')
+                $("#submit").attr('value','submitted')
                 
             }
             },

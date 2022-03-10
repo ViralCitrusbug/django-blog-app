@@ -15,7 +15,7 @@ class PostList(View):
         print(request.session.get('user_id'))
         print(request.session.get('user_email'))
         print(request.session.get('user_username'))
-        post = Post.objects.all().order_by('-published_date')
+        post = Post.objects.filter(soft_delete=False).order_by('-published_date')
         category_id = request.GET.get('category')
         search = request.GET.get('search')
 

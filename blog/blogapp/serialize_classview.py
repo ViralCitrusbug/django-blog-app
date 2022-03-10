@@ -14,7 +14,7 @@ class PostListView(APIView):
     def post(self,request):
         serialize = PostSerializers(data=request.data)
         if serialize.is_valid():
-            serialize.save()
+            # print(serialize.validated_data)
             return Response(serialize.data)
         else:
             return Response(serialize.errors)

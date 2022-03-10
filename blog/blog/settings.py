@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blogapp.apps.BlogappConfig',
     'customadmin.apps.CustomadminConfig',
-     'widget_tweaks',
+    'widget_tweaks',
     'crispy_forms',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -146,3 +146,9 @@ LOGIN_URL = "auth:auth_login"
 LOGOUT_REDIRECT_URL = "auth:auth_login"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+## PAGINATION IN DJANGO REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 3
+}

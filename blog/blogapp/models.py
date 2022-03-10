@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
 
 # Create your models here.
 class Category(models.Model):
@@ -16,6 +20,7 @@ class Post(models.Model):
     content = models.TextField()
     published_date = models.DateTimeField(default=now)
     post_image = models.ImageField(upload_to='post/post-image/',null=True)
+    soft_delete = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.title
@@ -39,3 +44,8 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user.username}\t{self.comment[0:10]}..."
+
+@receiver(post_save,sender=User)
+def create_auth_token(sender,instance,created,**kwargs):
+    if created:
+        Token.objects.create(user=instance)

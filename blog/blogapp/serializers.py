@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from . models import Post, Profile,User
+from rest_framework.authtoken.models import Token
 
 class PostSerializers(serializers.ModelSerializer):
     id = serializers.CharField(read_only=True)
+    soft_delete = serializers.CharField(read_only=True)
     class Meta:
         model = Post
-        fields=['title','post_image','content','category',"user","id"]
+        fields=['title','post_image','content','category','user',"id","soft_delete"]
     def create(self,validated_data):
-
-        print(validated_data.get('category'))
         new_post = Post.objects.create(**validated_data)
         new_post.save()
         return new_post

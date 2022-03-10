@@ -11,11 +11,14 @@ Blog Detail
         <div class="col-2"></div>
         <div class="col-8">
             <div class=" my-5">
+                {% if post.post_image %}
                 <div><img src="{{post.post_image.url}}" class="w-100" alt=""></div>
+                {% endif %}
                 <div class="my-2">
                     <a class="text-decoration-none text-danger"
                         href="/post/filter/{{post.category.name}}"><b>{{post.category.name}}</b></a>
                 </div>
+                {% if post.post_image %}
                 <div class="">
                     <ul>
                         {% for point in post.highlight_set.all %}
@@ -29,6 +32,7 @@ Blog Detail
                     <h5 class="">{{post.content}}</h5>
                     <div class="my-5"><img src="{{post.post_image.url}}" class="w-75" alt=""></div>
                 </div>
+                {% endif %}
                 <div class="mx-4 col mt-4">
                     <div class="d-flex">
                         <div class="col text-black">
@@ -36,6 +40,7 @@ Blog Detail
                             <div class="d-flex mt-5">
                                 <div class=""></div>
                                 <div class="col">
+                                    {% if post.post_image %}
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
@@ -62,6 +67,7 @@ Blog Detail
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                     </div>
+                                    {% endif %}
                                 </div>
                                 <div class=""></div>
                             </div>

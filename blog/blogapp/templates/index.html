@@ -23,9 +23,11 @@ Home
                 {% for post in page %}
                 <div class="row border-bottom my-5">
                     <div class="col-5">
-                        <div><a href="/blog/post/{{post.id}}">
-                                <img class="w-100" src="{{post.post_image.url}}" alt="">
-                            </a></div>
+                       {% if post.post_image %}
+                       <div><a href="/blog/post/{{post.id}}">
+                        <img class="w-100" src="{{post.post_image.url}}" alt="">
+                    </a></div>
+                       {% endif %}
                     </div>
                     <div class="col">
                         <h6 class=""><b><a class="text-danger text-decoration-none"
