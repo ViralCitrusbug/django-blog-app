@@ -15,7 +15,7 @@ class PostListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
     queryset = Post.objects.filter(soft_delete=False)
     serializer_class = PostSerializers
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 
     def get(self,request):
@@ -27,10 +27,10 @@ class PostListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
         return  self.list(request)
     
     def post(self,request):
-        #print(request.data)
-        #print(request.user.id,request.user.username)
+        print(request.data)
+        print(request.user.id,request.user.username)
         request.data.update({'user':request.user.id})
-        #print(request.data)
+        print(request.data)
         return self.create(request)
 
 class UserListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
@@ -118,4 +118,3 @@ class PostSearchFilter(ListAPIView):
     queryset = Post.objects.filter(soft_delete=False)
     filter_backends = [SearchFilter]
     search_fields = ['content','title']
-

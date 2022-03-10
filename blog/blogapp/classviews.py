@@ -12,9 +12,6 @@ from . models import Comment
 import re
 class PostList(View):
     def get(self,request):
-        print(request.session.get('user_id'))
-        print(request.session.get('user_email'))
-        print(request.session.get('user_username'))
         post = Post.objects.filter(soft_delete=False).order_by('-published_date')
         category_id = request.GET.get('category')
         search = request.GET.get('search')

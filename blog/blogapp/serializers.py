@@ -7,7 +7,7 @@ class PostSerializers(serializers.ModelSerializer):
     soft_delete = serializers.CharField(read_only=True)
     class Meta:
         model = Post
-        fields=['title','post_image','content','category',"id","soft_delete"]
+        fields=['title','post_image','content','category',"id","user","soft_delete"]
     def create(self,validated_data):
         new_post = Post.objects.create(**validated_data)
         new_post.save()
