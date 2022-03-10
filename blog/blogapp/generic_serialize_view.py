@@ -37,6 +37,9 @@ class PostListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
 class UserListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self,request):
         return self.list(request)
@@ -47,6 +50,10 @@ class UserListView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
 class UserCRUD(mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.UpdateModelMixin,generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self,request,pk):
         return self.retrieve(request)
 
@@ -59,11 +66,17 @@ class UserCRUD(mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.UpdateM
 class ProfileListView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     def get(self,request):
         return self.list(request)
 
 class ProfileCRUD(generics.GenericAPIView,mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.UpdateModelMixin):
     queryset = Profile.objects.all()
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     serializer_class = ProfileSerializer
     def get(self,request,pk):
@@ -78,6 +91,10 @@ class ProfileCRUD(generics.GenericAPIView,mixins.RetrieveModelMixin,mixins.Destr
 class PostCRUD(generics.GenericAPIView,mixins.DestroyModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin):
     queryset = Post.objects.all()
     serializer_class = PostSerializers
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_post(self,pk):
         try:
             post = Post.objects.get(pk=pk)
